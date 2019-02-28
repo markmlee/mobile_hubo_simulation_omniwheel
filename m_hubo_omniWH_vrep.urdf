@@ -51,8 +51,9 @@
   <!--BODY TORSO-->
   <joint name="WST" type="revolute">
     <origin
-      xyz="0 0 0.692"
+      xyz="0 0 0.677"
       rpy="0 0 0" />
+<!--original z = 0.692 -->
     <parent
       link="Body_WHBase_link" />
     <child
@@ -230,22 +231,6 @@
     <limit effort="10000000" velocity="100.0" lower="-5" upper="5" />
     <dynamics damping="5" friction="2" />
   </joint>
-
-<!--
-  <joint name="LSY" type="revolute">
-    <origin
-      xyz="0 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="Body_LSR" />
-    <child
-      link="Body_LSY" />
-    <axis
-      xyz="0 0 1" />
-    <limit effort="100" velocity="1.0" lower="-5" upper="5" />
-    <dynamics damping="5" friction="5" />
-  </joint>
--->
 
   <link name="Body_LSY">
     <inertial>
@@ -1993,14 +1978,14 @@
     <collision>
       <origin xyz = "0 0 0" rpy = "0 0 0" />
       <geometry>
-        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/OmniWheelBase_col.STL"/>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/mobile_hubo_lower_col.STL"/>
       </geometry>
     </collision>
 
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/OmniWheelBase.STL"/>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/mobile_hubo_lower.STL"/>
       </geometry>      
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1" />
@@ -2010,12 +1995,126 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="42.73901"/>
-      <inertia ixx="402340073.25e-9"
-               ixy="-329799.82e-9"
-               ixz="-8461281.88e-9"
-               iyy="4019892063.96e-9"
-               iyz="1296356.91e-9"
-               izz="1034396196.44e-9"/>
+      <inertia ixx="3672191679.99e-9"
+               ixy="-290607.51e-9"
+               ixz="-9447939.68e-9"
+               iyy="3668638231.22e-9"
+               iyz="499477.23e-9"
+               izz="789686881.75e-9"/>
+    </inertial>
+  </link>
+
+
+  <joint name="whbase_to_omniWH1" type="continuous">
+    <parent link="Body_WHBase_link"/>
+    <child link="omniWH1"/>
+    <origin rpy="0 0 -2.61799333" xyz="0.158 -0.27366 -0.075"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100000" velocity="2.0"/>
+    <dynamics damping="200.0" friction="200.0"/>
+  </joint>
+
+  <link name="omniWH1">
+    <collision>
+      <origin xyz = "0 0 0" rpy = "0 0 0" />
+      <geometry>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/omni_wheel_col.STL"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/omni_wheel.STL"/>
+      </geometry>      
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.480"/>
+      <inertia ixx="548934.91e-9"
+               ixy="9.06e-9"
+               ixz="-21.49e-9"
+               iyy="997697.82e-9"
+               iyz="22.46e-9"
+               izz="548979.46e-9"/>
+    </inertial>
+  </link>
+
+  <joint name="whbase_to_omniWH2" type="continuous">
+    <parent link="Body_WHBase_link"/>
+    <child link="omniWH2"/>
+    <origin rpy="0 0 -0.52359867" xyz="0.158 0.27366 -0.075"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100000" velocity="2.0"/>
+    <dynamics damping="200.0" friction="200.0"/>
+  </joint>
+
+  <link name="omniWH2">
+    <collision>
+      <origin xyz = "0 0 0" rpy = "0 0 0" />
+      <geometry>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/omni_wheel_col.STL"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/omni_wheel.STL"/>
+      </geometry>      
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.480"/>
+      <inertia ixx="548934.91e-9"
+               ixy="9.06e-9"
+               ixz="-21.49e-9"
+               iyy="997697.82e-9"
+               iyz="22.46e-9"
+               izz="548979.46e-9"/>
+    </inertial>
+  </link>
+
+  <joint name="whbase_to_omniWH3" type="continuous">
+    <parent link="Body_WHBase_link"/>
+    <child link="omniWH3"/>
+    <origin rpy="0 0 1.570796" xyz="-0.316 0.0 -0.075"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100000" velocity="2.0"/>
+    <dynamics damping="200.0" friction="200.0"/>
+  </joint>
+
+  <link name="omniWH3">
+    <collision>
+      <origin xyz = "0 0 0" rpy = "0 0 0" />
+      <geometry>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/omni_wheel_col.STL"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/omni_wheel.STL"/>
+      </geometry>      
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.480"/>
+      <inertia ixx="548934.91e-9"
+               ixy="9.06e-9"
+               ixz="-21.49e-9"
+               iyy="997697.82e-9"
+               iyz="22.46e-9"
+               izz="548979.46e-9"/>
     </inertial>
   </link>
 
@@ -2035,7 +2134,7 @@
       <origin xyz="0.04419 0 0.054" rpy="0 0 0"/>
       <geometry>
 	<mesh
-          filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/ASM_VISION.STL" />
+          filename="/home/rainbow/catkin_ws/src/m_hubo/meshes/ASM_VISION_col.STL" />
       </geometry>
     </collision>
 
