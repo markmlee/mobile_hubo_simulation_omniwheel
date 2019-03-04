@@ -1,6 +1,9 @@
 # mobile_hubo_simulation_omniwheel
 omniwheel version
 
+</br>
+ros project: 
+mobile_hubo_omniWH
 
 </br>
 
