@@ -1,13 +1,16 @@
 # mobile_hubo_simulation_omniwheel
 omniwheel version
 
-</br>
-ros project: 
-mobile_hubo_omniWH
+
 
 </br>
 
 FILE Description
+
+"mobile_hubo_omniWH"
+- $ cd ~/catkin_ws && catkin_make
+- $ source devel/setup.bash
+- $ roslaunch podo_connector omni_drc_hubo.launch
 
 "m_hubo_omniWH_verp.urdf"
 - mobile hubo model for vrep
