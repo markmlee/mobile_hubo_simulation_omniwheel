@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+  <sdf version="1.4">
+    <world name="default"> 
+    <gui>
+       <camera name = "user_camera">
+		<pose>1.5 -4 4.8 0 0.8 1.5708 </pose>
+       </camera>
+    </gui>
+
+    <physics type= "ode">
+	<max_step_size>0.001</max_step_size>
+	<real_time_update_rate>1000</real_time_update_rate>
+
+	<simbody>
+	  <contact>
+	    <static_friction>0.98</static_friction>
+	    <dynamic_friction>0.98</dynamic_friction>
+	  </contact>
+	</simbody>
+
+        <ode>
+          <constraints>
+            <contact_max_correcting_vel>0.3</contact_max_correcting_vel>
+            <contact_surface_layer>0.0005</contact_surface_layer>
+          </constraints>
+        </ode>
+
+    </physics>  
+
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+<!--
+    <include>
+      <uri>model://DRC_HOUSE1</uri>
+      <pose>2 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://table</uri>
+      <pose>4.114 1.383 -0.405 0 0 1.5708</pose>
+    </include>
+
+    <include>
+      <uri>model://coke_can</uri>
+      <pose>4.413 1.477 0.838 0 0 1.5708</pose>
+    </include>
+-->
+
+	<!-- Adding Cinder blocks bottom layer-->
+	<population name="block_population1">
+      <model name="block1">
+	    
+        <include>
+          <static>false</static>
+          <uri>model://cinder_block</uri>
+		<pose>0 0 0 1.57 0 0</pose>
+        </include>
+      </model>
+      <pose>4 0 1 0 0 0</pose>
+      <gravity>0 0 -9.81</gravity>
+      <self_collide>false</self_collide>
+      <box>
+        <size>3 3 3</size>
+      </box>
+      
+     <model_count>12</model_count>
+	  <distribution>
+        <type>grid</type>
+        <rows>4</rows>
+        <cols>3</cols>
+        <step>0.425 0.17 0</step>
+      </distribution> 
+      
+    </population>
+    
+    <!-- Adding Cinder blocks top layer--> 
+	<population name="block_population2">
+      <model name="block2">
+	    
+        <include>
+          <static>false</static>
+          <uri>model://cinder_block</uri>
+			<pose>0 0 0 1.57 0 1.57</pose>
+        </include>
+      </model>
+      <pose>4 -0.1 2 0 0 0</pose>
+      <gravity>0 0 -9.81</gravity>
+      <self_collide>false</self_collide>
+      <box>
+        <size>3 3 3</size>
+      </box>
+      
+     <model_count>4</model_count>
+	  <distribution>
+        <type>grid</type>
+        <rows>2</rows>
+        <cols>2</cols>
+        <step>0.17 0.425 0</step>
+      </distribution> 
+      
+    </population>
+    
+   
+
+    </world>
+  </sdf>
