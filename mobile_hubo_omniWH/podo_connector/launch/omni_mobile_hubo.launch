@@ -19,7 +19,6 @@
   <node pkg="podo_connector" type="podo_connector" name="podo_connector" output="screen"/>
 
   <!-- set param "robot_description" with URDF model -->
-  <!--<arg name="model" default="$(find drc_plugin)/urdf/DRC_HUBO.urdf"/>-->
   <arg name="model" default="$(find hubo_plugin)/urdf/plannar_move_m_hubo_omniWH.urdf"/>
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
 
@@ -27,7 +26,7 @@
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen"/>
 
   <!-- turn on the rviz for visualization -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find drc_plugin)/rviz/drc.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find hubo_plugin)/rviz/drc.rviz"/>
 
 
 
