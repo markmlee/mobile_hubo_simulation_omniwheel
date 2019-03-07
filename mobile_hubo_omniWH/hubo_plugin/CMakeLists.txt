@@ -22,10 +22,6 @@ find_package(gazebo REQUIRED)
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS} ${OGRE_INCLUDE_DIRS} ${OGRE_INCLUDE_DIRS}/Paging)
 
-add_library(drc_plugin src/drc_plugin.cpp)
-target_link_libraries(drc_plugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
-
-
 add_library(hubo_gazebo_plugin src/hubo_gazebo_plugin.cpp)
 target_link_libraries(hubo_gazebo_plugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 

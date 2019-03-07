@@ -13,8 +13,8 @@
 
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Twist.h>
-#include <drc_podo_connector/DRC_HEAD_CMD.h>
-#include <drc_podo_connector/SendPos.h>
+//#include <drc_podo_connector/DRC_HEAD_CMD.h>
+//#include <drc_podo_connector/SendPos.h>
 
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
@@ -77,36 +77,36 @@ void base_move_callback(const geometry_msgs::Twist::ConstPtr &msg){
     }
 }
 
-void send_pos_callback(const drc_podo_connector::SendPos::ConstPtr &msg){
-    std::cout << "send_pos_callback" << std::endl;
-    if(connectionStatus){
-        tf::TransformListener listener;
-        tf::StampedTransform streaming;
-        std::string b_stream = "Sensor_streaming";
-////        std::string b_tor = "Body_TORSO";
-        std::string b_tor = "Body_WHBase_plate_link";
-        ros::Duration timeout(0.05);
-        try{
-            listener.waitForTransform(b_tor, b_stream, ros::Time(0), ros::Duration(0.05));
-            listener.lookupTransform(b_tor, b_stream, ros::Time(0), streaming);
+//void send_pos_callback(const drc_podo_connector::SendPos::ConstPtr &msg){
+//    std::cout << "send_pos_callback" << std::endl;
+//    if(connectionStatus){
+//        tf::TransformListener listener;
+//        tf::StampedTransform streaming;
+//        std::string b_stream = "Sensor_streaming";
+//////        std::string b_tor = "Body_TORSO";
+//        std::string b_tor = "Body_WHBase_plate_link";
+//        ros::Duration timeout(0.05);
+//        try{
+//            listener.waitForTransform(b_tor, b_stream, ros::Time(0), ros::Duration(0.05));
+//            listener.lookupTransform(b_tor, b_stream, ros::Time(0), streaming);
 
-            tf::Transform tempTF;
-            tf::Transform objTF;
-            objTF.setIdentity();
-            objTF.setOrigin(tf::Vector3(msg->x, msg->y, msg->z));
-            tempTF.mult(streaming, objTF);
+//            tf::Transform tempTF;
+//            tf::Transform objTF;
+//            objTF.setIdentity();
+//            objTF.setOrigin(tf::Vector3(msg->x, msg->y, msg->z));
+//            tempTF.mult(streaming, objTF);
 
-            TXData.pos[0] = tempTF.getOrigin().x();
-            TXData.pos[1] = tempTF.getOrigin().y();
-            TXData.pos[2] = tempTF.getOrigin().z();
+//            TXData.pos[0] = tempTF.getOrigin().x();
+//            TXData.pos[1] = tempTF.getOrigin().y();
+//            TXData.pos[2] = tempTF.getOrigin().z();
 
-            write(sock, &TXData, TXDataSize);
-            std::cout << TXData.pos[0] << ", " << TXData.pos[1] << ", " << TXData.pos[2] << std::endl;
-        }catch(tf::TransformException &ex){
-//            ////ROS_WARN("%s",ex.what());
-        }
-    }
-}
+//            write(sock, &TXData, TXDataSize);
+//            std::cout << TXData.pos[0] << ", " << TXData.pos[1] << ", " << TXData.pos[2] << std::endl;
+//        }catch(tf::TransformException &ex){
+////            ////ROS_WARN("%s",ex.what());
+//        }
+//    }
+//}
 
 
 int main(int argc, char **argv)
@@ -121,11 +121,11 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     
     joint_pub   	= n.advertise<sensor_msgs::JointState>("joint_states", 1);
-    head_cmd_pub 	= n.advertise<drc_podo_connector::DRC_HEAD_CMD>("drc_head_cmd", 1);
+    //head_cmd_pub 	= n.advertise<drc_podo_connector::DRC_HEAD_CMD>("drc_head_cmd", 1);
     odom_pub 		= n.advertise<nav_msgs::Odometry>("odom", 20);
 
     base_move_sub = n.subscribe("/cmd_vel", 10, base_move_callback);
-    obj_pos_sub = n.subscribe("send_pos_topic", 10, send_pos_callback);
+    //obj_pos_sub = n.subscribe("send_pos_topic", 10, send_pos_callback);
 
     tf::TransformBroadcaster odom_broadcaster;
     podom_broadcaster = &odom_broadcaster;
