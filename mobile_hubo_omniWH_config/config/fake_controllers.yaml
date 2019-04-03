@@ -1,0 +1,52 @@
+rate: 200 #(Hz, used for interpolation controller)
+controller_list:
+  - name: fake_L_arm_controller
+    joints:
+      - LSP
+      - LSR
+      - LSY
+      - LEB
+      - LWY
+      - LWP
+      - LWFT
+  - name: fake_R_arm_controller
+    joints:
+      - RSP
+      - RSR
+      - RSY
+      - REB
+      - RWY
+      - RWP
+      - RWFT
+  - name: fake_L_hand_controller
+    joints:
+      - LWY2
+      - LHAND_a1
+      - LHAND_a2
+      - LHAND_a3
+      - LHAND_b1
+      - LHAND_b2
+      - LHAND_b3
+      - LHAND_c1
+      - LHAND_c2
+      - LHAND_c3
+  - name: fake_R_hand_controller
+    joints:
+      - RWY2
+      - RHAND_a1
+      - RHAND_a2
+      - RHAND_a3
+      - RHAND_b1
+      - RHAND_b2
+      - RHAND_b3
+      - RHAND_c1
+      - RHAND_c2
+      - RHAND_c3
+  - name: fake_WST_controller
+    joints:
+      - WST
+  - name: fake_wheels_controller
+    joints:
+      - RHY
+      - RHR
+      - RHP

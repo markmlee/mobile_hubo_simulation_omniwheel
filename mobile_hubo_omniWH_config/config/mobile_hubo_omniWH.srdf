@@ -1,0 +1,473 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="mobile_hubo_omniWH">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="L_arm">
+        <joint name="LSP" />
+        <joint name="LSR" />
+        <joint name="LSY" />
+        <joint name="LEB" />
+        <joint name="LWY" />
+        <joint name="LWP" />
+        <joint name="LWFT" />
+    </group>
+    <group name="R_arm">
+        <joint name="RSP" />
+        <joint name="RSR" />
+        <joint name="RSY" />
+        <joint name="REB" />
+        <joint name="RWY" />
+        <joint name="RWP" />
+        <joint name="RWFT" />
+    </group>
+    <group name="L_hand">
+        <link name="Body_LF1" />
+        <link name="Body_LF2_a1" />
+        <link name="Body_LF2_a2" />
+        <link name="Body_LF2_a3" />
+        <link name="Body_LF2_b1" />
+        <link name="Body_LF2_b2" />
+        <link name="Body_LF2_b3" />
+        <link name="Body_LF2_c1" />
+        <link name="Body_LF2_c2" />
+        <link name="Body_LF2_c3" />
+    </group>
+    <group name="R_hand">
+        <link name="Body_RF1" />
+        <link name="Body_RF2_a1" />
+        <link name="Body_RF2_a2" />
+        <link name="Body_RF2_a3" />
+        <link name="Body_RF2_b1" />
+        <link name="Body_RF2_b2" />
+        <link name="Body_RF2_b3" />
+        <link name="Body_RF2_c1" />
+        <link name="Body_RF2_c2" />
+        <link name="Body_RF2_c3" />
+    </group>
+    <group name="WST">
+        <link name="Body_WHBase_link" />
+        <link name="Body_TORSO" />
+    </group>
+    <group name="wheels">
+        <joint name="RHY" />
+        <joint name="RHR" />
+        <joint name="RHP" />
+        <joint name="base_footprint_joint" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="WalkReady" group="L_arm">
+        <joint name="LEB" value="-2.3" />
+        <joint name="LSP" value="0.7" />
+        <joint name="LSR" value="0" />
+        <joint name="LSY" value="0" />
+        <joint name="LWFT" value="0" />
+        <joint name="LWP" value="0" />
+        <joint name="LWY" value="0" />
+    </group_state>
+    <group_state name="zero" group="L_arm">
+        <joint name="LEB" value="0" />
+        <joint name="LSP" value="0" />
+        <joint name="LSR" value="0" />
+        <joint name="LSY" value="0" />
+        <joint name="LWFT" value="0" />
+        <joint name="LWP" value="0" />
+        <joint name="LWY" value="0" />
+    </group_state>
+    <group_state name="zero" group="R_arm">
+        <joint name="REB" value="0" />
+        <joint name="RSP" value="0" />
+        <joint name="RSR" value="0" />
+        <joint name="RSY" value="0" />
+        <joint name="RWFT" value="0" />
+        <joint name="RWP" value="0" />
+        <joint name="RWY" value="0" />
+    </group_state>
+    <group_state name="WalkReady" group="R_arm">
+        <joint name="REB" value="-2.3" />
+        <joint name="RSP" value="0.7" />
+        <joint name="RSR" value="0" />
+        <joint name="RSY" value="0" />
+        <joint name="RWFT" value="0" />
+        <joint name="RWP" value="0" />
+        <joint name="RWY" value="0" />
+    </group_state>
+    <group_state name="zero" group="WST">
+        <joint name="WST" value="0" />
+    </group_state>
+    <group_state name="back" group="WST">
+        <joint name="WST" value="-3.14" />
+    </group_state>
+    <group_state name="zero" group="L_hand">
+        <joint name="LHAND_a1" value="0" />
+        <joint name="LHAND_a2" value="0" />
+        <joint name="LHAND_a3" value="0" />
+        <joint name="LHAND_b1" value="0" />
+        <joint name="LHAND_b2" value="0" />
+        <joint name="LHAND_b3" value="0" />
+        <joint name="LHAND_c1" value="0" />
+        <joint name="LHAND_c2" value="0" />
+        <joint name="LHAND_c3" value="0" />
+        <joint name="LWY2" value="0" />
+    </group_state>
+    <group_state name="grasp" group="L_hand">
+        <joint name="LHAND_a1" value="0.7" />
+        <joint name="LHAND_a2" value="0.7" />
+        <joint name="LHAND_a3" value="0.7" />
+        <joint name="LHAND_b1" value="0.7" />
+        <joint name="LHAND_b2" value="0.7" />
+        <joint name="LHAND_b3" value="0.7" />
+        <joint name="LHAND_c1" value="0.7" />
+        <joint name="LHAND_c2" value="0.7" />
+        <joint name="LHAND_c3" value="0.7" />
+        <joint name="LWY2" value="0" />
+    </group_state>
+    <group_state name="zero" group="R_hand">
+        <joint name="RHAND_a1" value="0" />
+        <joint name="RHAND_a2" value="0" />
+        <joint name="RHAND_a3" value="0" />
+        <joint name="RHAND_b1" value="0" />
+        <joint name="RHAND_b2" value="0" />
+        <joint name="RHAND_b3" value="0" />
+        <joint name="RHAND_c1" value="0" />
+        <joint name="RHAND_c2" value="0" />
+        <joint name="RHAND_c3" value="0" />
+        <joint name="RWY2" value="0" />
+    </group_state>
+    <group_state name="grasp" group="R_hand">
+        <joint name="RHAND_a1" value="0.7" />
+        <joint name="RHAND_a2" value="0.7" />
+        <joint name="RHAND_a3" value="0.7" />
+        <joint name="RHAND_b1" value="0.7" />
+        <joint name="RHAND_b2" value="0.7" />
+        <joint name="RHAND_b3" value="0.7" />
+        <joint name="RHAND_c1" value="0.7" />
+        <joint name="RHAND_c2" value="0.7" />
+        <joint name="RHAND_c3" value="0.7" />
+        <joint name="RWY2" value="0" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="LeftHand" parent_link="Body_LWFT" group="L_hand" parent_group="L_arm" />
+    <end_effector name="R_Hand" parent_link="Body_RWFT" group="R_hand" parent_group="R_arm" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="Body_LEB" link2="Body_LF1" reason="Never" />
+    <disable_collisions link1="Body_LEB" link2="Body_LSP" reason="Never" />
+    <disable_collisions link1="Body_LEB" link2="Body_LSR" reason="Never" />
+    <disable_collisions link1="Body_LEB" link2="Body_LSY" reason="Adjacent" />
+    <disable_collisions link1="Body_LEB" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LEB" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LEB" link2="Body_LWY" reason="Adjacent" />
+    <disable_collisions link1="Body_LEB" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF1" link2="Body_LF2_a1" reason="Adjacent" />
+    <disable_collisions link1="Body_LF1" link2="Body_LF2_a2" reason="Never" />
+    <disable_collisions link1="Body_LF1" link2="Body_LF2_b1" reason="Adjacent" />
+    <disable_collisions link1="Body_LF1" link2="Body_LF2_b2" reason="Never" />
+    <disable_collisions link1="Body_LF1" link2="Body_LF2_c1" reason="Adjacent" />
+    <disable_collisions link1="Body_LF1" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF1" link2="Body_LWFT" reason="Adjacent" />
+    <disable_collisions link1="Body_LF1" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_a2" reason="Adjacent" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_a3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_b1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_b2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_b3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_c1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_a1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_a3" reason="Adjacent" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_b1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_b2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_b3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_c1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_RF2_a2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_RF2_a3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_RF2_b1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_RF2_b2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_a2" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LF2_b1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LF2_b2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LF2_b3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LF2_c1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_RF2_a1" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_RF2_a2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_RF2_a3" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_RF2_b2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_a3" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LF2_b2" reason="Adjacent" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LF2_b3" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LF2_c1" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Body_RF2_a3" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_b1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Body_LF2_b3" reason="Adjacent" />
+    <disable_collisions link1="Body_LF2_b2" link2="Body_LF2_c1" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_b2" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_LF2_c1" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_LF2_c2" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_RF2_a2" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Body_RF2_b1" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_b3" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_c1" link2="Body_LF2_c2" reason="Adjacent" />
+    <disable_collisions link1="Body_LF2_c1" link2="Body_LF2_c3" reason="Never" />
+    <disable_collisions link1="Body_LF2_c1" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_c1" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_c1" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_c1" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_c1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_c2" link2="Body_LF2_c3" reason="Adjacent" />
+    <disable_collisions link1="Body_LF2_c2" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_c2" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_c2" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_c2" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LF2_c2" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_c2" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="Body_LWFT" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="Body_LWP" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="Body_RF2_b1" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LF2_c3" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Body_LSR" reason="Adjacent" />
+    <disable_collisions link1="Body_LSP" link2="Body_RSP" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Body_RSR" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Body_TORSO" reason="Adjacent" />
+    <disable_collisions link1="Body_LSP" link2="Body_WHBase_link" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Body_vision" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LSP" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Body_LSY" reason="Adjacent" />
+    <disable_collisions link1="Body_LSR" link2="Body_RSP" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Body_RSR" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Body_RSY" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Body_TORSO" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Body_WHBase_link" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Body_vision" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_LSR" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LSY" link2="Body_RSR" reason="Never" />
+    <disable_collisions link1="Body_LSY" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LWFT" link2="Body_LWP" reason="Adjacent" />
+    <disable_collisions link1="Body_LWFT" link2="Body_RF2_a2" reason="Never" />
+    <disable_collisions link1="Body_LWFT" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_LWFT" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LWFT" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_LWFT" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LWP" link2="Body_LWY" reason="Adjacent" />
+    <disable_collisions link1="Body_LWP" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_LWP" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_LWY" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_REB" link2="Body_RF1" reason="Never" />
+    <disable_collisions link1="Body_REB" link2="Body_RSP" reason="Never" />
+    <disable_collisions link1="Body_REB" link2="Body_RSR" reason="Never" />
+    <disable_collisions link1="Body_REB" link2="Body_RSY" reason="Adjacent" />
+    <disable_collisions link1="Body_REB" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_REB" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_REB" link2="Body_RWY" reason="Adjacent" />
+    <disable_collisions link1="Body_REB" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF1" link2="Body_RF2_a1" reason="Adjacent" />
+    <disable_collisions link1="Body_RF1" link2="Body_RF2_a2" reason="Never" />
+    <disable_collisions link1="Body_RF1" link2="Body_RF2_b1" reason="Adjacent" />
+    <disable_collisions link1="Body_RF1" link2="Body_RF2_b2" reason="Never" />
+    <disable_collisions link1="Body_RF1" link2="Body_RF2_c1" reason="Adjacent" />
+    <disable_collisions link1="Body_RF1" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF1" link2="Body_RWFT" reason="Adjacent" />
+    <disable_collisions link1="Body_RF1" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_a2" reason="Adjacent" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_a3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_b1" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_b2" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_b3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_c1" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_a1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_a3" reason="Adjacent" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_b1" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_b2" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_b3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_c1" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_a2" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RF2_b1" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RF2_b2" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RF2_b3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RF2_c1" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_a3" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RF2_b2" reason="Adjacent" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RF2_b3" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RF2_c1" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_b1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Body_RF2_b3" reason="Adjacent" />
+    <disable_collisions link1="Body_RF2_b2" link2="Body_RF2_c1" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RF2_b2" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Body_RF2_c1" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Body_RF2_c2" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RF2_b3" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="Body_RF2_c2" reason="Adjacent" />
+    <disable_collisions link1="Body_RF2_c1" link2="Body_RF2_c3" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_c1" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_c2" link2="Body_RF2_c3" reason="Adjacent" />
+    <disable_collisions link1="Body_RF2_c2" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_c2" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_c2" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_c2" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_c2" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RF2_c3" link2="Body_RWFT" reason="Never" />
+    <disable_collisions link1="Body_RF2_c3" link2="Body_RWP" reason="Never" />
+    <disable_collisions link1="Body_RF2_c3" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_c3" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RF2_c3" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="Body_RSR" reason="Adjacent" />
+    <disable_collisions link1="Body_RSP" link2="Body_TORSO" reason="Adjacent" />
+    <disable_collisions link1="Body_RSP" link2="Body_WHBase_link" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="Body_vision" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RSP" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Body_RSY" reason="Adjacent" />
+    <disable_collisions link1="Body_RSR" link2="Body_TORSO" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Body_WHBase_link" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Body_vision" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RSR" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RSY" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RWFT" link2="Body_RWP" reason="Adjacent" />
+    <disable_collisions link1="Body_RWFT" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RWFT" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RWFT" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RWP" link2="Body_RWY" reason="Adjacent" />
+    <disable_collisions link1="Body_RWP" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_RWP" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_RWP" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_RWP" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_RWY" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_TORSO" link2="Body_WHBase_link" reason="Adjacent" />
+    <disable_collisions link1="Body_TORSO" link2="Body_vision" reason="Adjacent" />
+    <disable_collisions link1="Body_TORSO" link2="Head_imu" reason="Default" />
+    <disable_collisions link1="Body_TORSO" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_TORSO" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_TORSO" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_TORSO" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Body_WHBase_link" link2="Body_vision" reason="Never" />
+    <disable_collisions link1="Body_WHBase_link" link2="Head_imu" reason="Never" />
+    <disable_collisions link1="Body_WHBase_link" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Body_WHBase_link" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Body_WHBase_link" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Body_WHBase_link" link2="base_footprint" reason="Adjacent" />
+    <disable_collisions link1="Body_vision" link2="Head_imu" reason="Adjacent" />
+    <disable_collisions link1="Body_vision" link2="Head_realsense_camera" reason="Adjacent" />
+    <disable_collisions link1="Body_vision" link2="Head_velodyne_lidar" reason="Adjacent" />
+    <disable_collisions link1="Body_vision" link2="Head_zed_camera" reason="Adjacent" />
+    <disable_collisions link1="Body_vision" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Head_imu" link2="Head_realsense_camera" reason="Never" />
+    <disable_collisions link1="Head_imu" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Head_imu" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Head_imu" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Head_realsense_camera" link2="Head_velodyne_lidar" reason="Never" />
+    <disable_collisions link1="Head_realsense_camera" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Head_realsense_camera" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Head_velodyne_lidar" link2="Head_zed_camera" reason="Never" />
+    <disable_collisions link1="Head_velodyne_lidar" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="Head_zed_camera" link2="base_footprint" reason="Never" />
+</robot>

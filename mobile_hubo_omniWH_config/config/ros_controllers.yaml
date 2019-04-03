@@ -1,0 +1,125 @@
+mobile_hubo_omniWH:
+# MoveIt-specific simulation settings
+  moveit_sim_hw_interface:
+    joint_model_group: controllers_initial_group_
+    joint_model_group_pose: controllers_initial_pose_
+# Settings for ros_control control loop
+  generic_hw_control_loop:
+    loop_hz: 300
+    cycle_time_error_threshold: 0.01
+# Settings for ros_control hardware interface
+  hardware_interface:
+    joints:
+      - RHY
+      - RHR
+      - RHP
+      - WST
+      - LSP
+      - LSR
+      - LSY
+      - LEB
+      - LWY
+      - LWP
+      - LWFT
+      - LWY2
+      - LHAND_a1
+      - LHAND_a2
+      - LHAND_a3
+      - LHAND_b1
+      - LHAND_b2
+      - LHAND_b3
+      - LHAND_c1
+      - LHAND_c2
+      - LHAND_c3
+      - RSP
+      - RSR
+      - RSY
+      - REB
+      - RWY
+      - RWP
+      - RWFT
+      - RWY2
+      - RHAND_a1
+      - RHAND_a2
+      - RHAND_a3
+      - RHAND_b1
+      - RHAND_b2
+      - RHAND_b3
+      - RHAND_c1
+      - RHAND_c2
+      - RHAND_c3
+    sim_control_mode: 1  # 0: position, 1: velocity
+# Publish all joint states
+# Creates the /joint_states topic necessary in ROS
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+  controller_list:
+    - name: L_arm_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        - LSP
+        - LSR
+        - LSY
+        - LEB
+        - LWY
+        - LWP
+        - LWFT
+    - name: R_arm_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        - RSP
+        - RSR
+        - RSY
+        - REB
+        - RWY
+        - RWP
+        - RWFT
+    - name: L_hand_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        - LWY2
+        - LHAND_a1
+        - LHAND_a2
+        - LHAND_a3
+        - LHAND_b1
+        - LHAND_b2
+        - LHAND_b3
+        - LHAND_c1
+        - LHAND_c2
+        - LHAND_c3
+    - name: R_hand_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        - RWY2
+        - RHAND_a1
+        - RHAND_a2
+        - RHAND_a3
+        - RHAND_b1
+        - RHAND_b2
+        - RHAND_b3
+        - RHAND_c1
+        - RHAND_c2
+        - RHAND_c3
+    - name: WST_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        WST
+    - name: wheels_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        - RHY
+        - RHR
+        - RHP
